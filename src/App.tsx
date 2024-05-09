@@ -44,7 +44,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div>
+        <div className="match-parent flex-column">
           <div className="AppBar">
             <a href="#" onClick={onLogout}>Logout</a>&nbsp;
             <a href="#" onClick={onRefresh}>Refresh</a>&nbsp;
