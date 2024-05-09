@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
-
+import LoginScreen from './screen/LoginScreen';
 
 function onLogout() {
 
@@ -17,15 +17,6 @@ function onRefresh() {
 
 function onWeb() {
 
-}
-
-const LoginScreen = () => {
-  return (
-    <>
-      <h2>Login screen</h2>
-      <Link to="/internal">Log in</Link>
-    </>
-  )
 }
 
 const InternalScreen = () => {
@@ -46,6 +37,7 @@ function App() {
       <Router>
         <div className="match-parent flex-column">
           <div className="AppBar">
+            <span className="AppBar-title">Attendance</span>
             <a href="#" onClick={onLogout}>Logout</a>&nbsp;
             <a href="#" onClick={onRefresh}>Refresh</a>&nbsp;
             <a href="#" onClick={onWeb}>Web App</a>

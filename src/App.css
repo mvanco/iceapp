@@ -31,14 +31,32 @@
 
 .AppBar {
   height: 64px;
+  background-color: #ebebeb;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.AppBar-title {
+  flex: 1;
+  font-size: 2em;
 }
 
 .Page {
   flex: 1;
+  flex-direction: column;
+  display: flex;
 }
 
 .Menu {
   height: 64px;
+  background-color: #ebebeb;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .match-parent {
@@ -46,13 +64,23 @@
   height: 100%;
 }
 
-.fill-dimension {
+.SubPage {
   flex: 1;
+  padding: 16px;
 }
 
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+.LoginScreen {
+  max-width: 300px;
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  align-self: center;
+  align-items: center;
 }
 
 @keyframes App-logo-spin {

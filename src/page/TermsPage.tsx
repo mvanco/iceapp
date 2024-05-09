@@ -3,7 +3,7 @@ import PageWrapper from "./PageWrapper"
 
 export default function TermsPage() {
   return (
-    <div className="fill-dimension">
+    <div className="SubPage">
       <h2>Terms screen</h2>
     </div>
   )
