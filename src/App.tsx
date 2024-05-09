@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import HomePage from './page/HomePage';
+import TermsPage from './page/TermsPage';
+import PageWrapper from './page/PageWrapper';
 
 
 function onLogout() {
@@ -37,31 +40,6 @@ const InternalScreen = () => {
   )
 }
 
-const HomeScreen = () => {
-  return (
-    <>
-      <h2>Home screen</h2>
-      <div className="Menu">
-        <Link to="/internal/home">Home</Link>
-        <Link to="/internal/terms">Terms</Link>
-      </div>
-    </>
-  )
-}
-
-const TermsScreen = () => {
-  return (
-    <>
-      <h2>Terms screen</h2>
-      <div className="Menu">
-        <Link to="/internal/home">Home</Link>
-        <Link to="/internal/terms">Terms</Link>
-      </div>
-    </>
-  )
-}
-
-
 function App() {
   return (
     <div className="App">
@@ -75,10 +53,10 @@ function App() {
           <div className="Page">
             <Routes>
               <Route path="/" element={<LoginScreen />} />
-              <Route path="/internal/*">
-                <Route index element={<HomeScreen />} />
-                <Route path="home" element={<HomeScreen />} />
-                <Route path="terms" element={<TermsScreen />} />
+              <Route path="/internal/*" element={<PageWrapper/>}>
+                  <Route index element={<HomePage />} />
+                  <Route path="home" element={<HomePage />} />
+                  <Route path="terms" element={<TermsPage />} />
               </Route>
             </Routes>
           </div>
