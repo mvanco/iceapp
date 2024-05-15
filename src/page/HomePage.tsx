@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
 import PageWrapper from "./PageWrapper"
-import { getSessionId } from "../model/Session" 
+import CurrentConfig from "../model/Config" 
 
 export default function HomePage() {
   return (
     <div className="SubPage">
       <h2>Home screen</h2>
-      <p>{getSessionId()}</p>
+      <p>{CurrentConfig.token}</p>
     </div>
   )
 }

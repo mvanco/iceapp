@@ -1,3 +1,6 @@
+import CurrentConfig from "../model/Config";
+import { login, LoginError } from "../repo/LoginRepo";
+
 export namespace Login {
   enum ErrorCode {
     IncorrectUsername,
@@ -19,7 +22,7 @@ export namespace Login {
 
   export interface Success {
     type: Type.Success;
-    username: string;
+    userId: number;
   }
 
   export interface Idle {
@@ -42,13 +45,14 @@ export namespace Login {
   export const LoginViewModel: LoginViewModelType = {
     uiState: { type: Type.Idle },
     login: async function(username, password): Promise<LoginViewModelType> {
-      if (username === "karel" && password === "heslo") {
-        await new Promise( (resolve) => {
-          setTimeout(() => { resolve(null) }, 1000)
-        });
-        return { ...this, uiState: { type: Type.Success, username: "karel" } }
-      }
-      else {
+      const result = await login(username, password);
+
+      if (typeof result === "object" && "token" in result) {
+        CurrentConfig.token = result.token;
+        CurrentConfig.userId = result.userId;
+        CurrentConfig.validity = result.validity;
+        return { ...this, uiState: { type: Type.Success, userId: result.userId } }
+      } else {
         return { ...this, uiState: { type: Type.Error, errorCode: ErrorCode.IncorrectPassword } }
       }
     }

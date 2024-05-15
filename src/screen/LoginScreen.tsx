@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { Login } from "../viewmodel/LoginViewModel";
 
-
 const navigateToInternal = (username: string, password: string) => {
   Login.LoginViewModel.login(username, password)
 }
