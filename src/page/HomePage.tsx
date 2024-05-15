@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
 import PageWrapper from "./PageWrapper"
-import { username } from "../viewmodel/AppViewModel"
+import { getSessionId } from "../model/Session" 
 
 export default function HomePage() {
   return (
     <div className="SubPage">
       <h2>Home screen</h2>
-      <p>{username}</p>
+      <p>{getSessionId()}</p>
     </div>
   )
 }
