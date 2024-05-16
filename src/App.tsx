@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
@@ -32,7 +32,6 @@ const InternalScreen = () => {
 }
 
 function App() {
-  const navigate = useNavigate();
   return (
     <div className="App">
       <Router>
