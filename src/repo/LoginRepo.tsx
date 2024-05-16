@@ -16,14 +16,13 @@ interface LoginData {
 
 async function login(username: string, password: string): Promise<LoginData | LoginError> {
   try {
-    const bodyData = JSON.stringify({
-      username: username,
-      password: password,
-      device_id: "unknown"
-    })
+    const bodyData = new URLSearchParams();
+    bodyData.append("username", username);
+    bodyData.append("password", password);
+    bodyData.append("device_id", "unknown");
     const response = await fetch(`${CurrentConfig.RestApiUrl}/login`, {
       method: 'POST',
-      body: bodyData,
+      body: bodyData
     });
 
     if (!response.ok) {
@@ -39,7 +38,7 @@ async function login(username: string, password: string): Promise<LoginData | Lo
     }
 
     console.error('Got data: ', data.result);
-    return { token: data.result.token, userId: data.result.user_id, validity: data.result.validity }
+    return { token: data.token, userId: data.user_id, validity: data.validity }
 
   } catch (error) {
     console.error('Error fetching data:', error);
