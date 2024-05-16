@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
@@ -12,7 +12,7 @@ function onLogout() {
 }
 
 function onRefresh() {
-
+  window.location.reload();
 }
 
 function onWeb() {
@@ -32,6 +32,7 @@ const InternalScreen = () => {
 }
 
 function App() {
+  const navigate = useNavigate();
   return (
     <div className="App">
       <Router>
@@ -39,8 +40,8 @@ function App() {
           <div className="AppBar">
             <span className="AppBar-title">Attendance</span>
             <a href="#" onClick={onLogout}>Logout</a>&nbsp;
-            <a href="#" onClick={onRefresh}>Refresh</a>&nbsp;
-            <a href="#" onClick={onWeb}>Web App</a>
+            <a href="javascript:void(0);" onClick={onRefresh}>Refresh</a>&nbsp;
+            <a href="https://iceapp.cz" onClick={onWeb}>Web App</a>
           </div>
           <div className="Page">
             <Routes>

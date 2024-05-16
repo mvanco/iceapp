@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <div className="SubPage">
       <h2>Home screen</h2>
-      <p>{CurrentConfig.token}</p>
+      <p>{CurrentConfig.userId}</p>
     </div>
   )
 }
