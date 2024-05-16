@@ -16,12 +16,14 @@ const LoginScreen = () => {
   useEffect(() => {
     if (viewModel.uiState.type === Login.Type.Success) {
       navigate("/internal");
+    } else if (viewModel.uiState.type === Login.Type.Error) {
+      setTimeout(() => setViewModel(Login.LoginViewModel.clearError()), 1000);
     }
   }, [viewModel]);
 
   return (
     <div className="LoginScreen">
-      <h2>{(viewModel.uiState.type === Login.Type.Error ) ? "Error" : "Login screen"}</h2>
+      <h2>{(viewModel.uiState.type === Login.Type.Error ) ? viewModel.uiState.errorCode : "Login"}</h2>
       <input
         type="text"
         value={username}
@@ -37,8 +39,12 @@ const LoginScreen = () => {
           setPassword(event.target.value);
         }}
         placeholder="Enter password"
+        style={{ marginTop: "16px" }}
       />
-      <a href="#" onClick={ async () => setViewModel(await Login.LoginViewModel.login(username, password)) } >Log in</a>
+      <button
+        onClick={ async () => setViewModel(await Login.LoginViewModel.login(username, password)) }
+        style={{ marginTop: "16px" }}
+      >Log in</button>
     </div>
   )
 }

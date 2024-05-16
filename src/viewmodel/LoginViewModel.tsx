@@ -3,9 +3,9 @@ import { login, LoginError } from "../repo/LoginRepo";
 
 export namespace Login {
   enum ErrorCode {
-    IncorrectUsername,
-    IncorrectPassword,
-    Unknown
+    IncorrectUsername = "Username doesn't exist.",
+    IncorrectPassword = "Incorrect password.",
+    Unknown = "Unknown error occurred."
   }
 
   export enum Type {
@@ -39,6 +39,7 @@ export namespace Login {
   interface LoginViewModelType {
     uiState: State;
     login: (username: string, password: string) => Promise<LoginViewModelType>;
+    clearError: () => LoginViewModelType
   }
 
   
@@ -55,6 +56,9 @@ export namespace Login {
       } else {
         return { ...this, uiState: { type: Type.Error, errorCode: ErrorCode.IncorrectPassword } }
       }
+    },
+    clearError: function(): LoginViewModelType {
+      return { ...this, uiState: { type: Type.Idle } }
     }
   }
 } 
