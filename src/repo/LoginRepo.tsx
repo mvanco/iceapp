@@ -9,9 +9,9 @@ enum LoginError {
 }
 
 interface LoginData {
-  token: string;
-  validity: string;
-  userId: number;
+  token: string,
+  validity: string,
+  userId: number
 }
 
 async function login(username: string, password: string): Promise<LoginData | LoginError> {
@@ -40,7 +40,7 @@ async function login(username: string, password: string): Promise<LoginData | Lo
     console.error('Got data: ', data.result);
     return { token: data.token, userId: data.user_id, validity: data.validity }
 
-  } catch (error) {
+  } catch(error) {
     console.error('Error fetching data:', error);
     return LoginError.Unknown;
   }

@@ -140,3 +140,11 @@ input {
 button {
   font-size: 1.5em;
 }
+
+.headlineLarge {
+  font-size: 2em;
+}
+
+.titleLarge {
+  font-size: 1.3em;
+}

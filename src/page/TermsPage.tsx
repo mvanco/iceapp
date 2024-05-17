@@ -4,7 +4,7 @@ import PageWrapper from "./PageWrapper"
 export default function TermsPage() {
   return (
     <div className="SubPage">
-      <h2>Terms screen</h2>
+      <span className="headlineLarge">Zájem o termíny</span>
     </div>
   )
 }
