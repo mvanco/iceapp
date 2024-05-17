@@ -12,8 +12,9 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchData() {
       const profile = await ConsoleRepo.profile();
-      if (typeof profile === "object")
-      setUser(profile);
+      if (typeof profile === "object") {
+        setUser(profile);
+      }
     }
     fetchData();
   }, []);

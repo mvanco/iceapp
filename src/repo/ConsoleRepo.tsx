@@ -8,6 +8,14 @@ enum ConsoleError {
   Unknown = "unknown"
 }
 
+interface InterestsResponse {
+  start: Date,
+  duration: number,
+  price: number,
+  rental_id: number,
+  registered: number
+}
+
 class ConsoleRepo {
   static async profile(): Promise<User | ConsoleError> {
     if (CurrentConfig.token === undefined) {
@@ -56,7 +64,16 @@ class ConsoleRepo {
           return value;
         }
       }
-      return [{ duration: 2, price: 3, rentalId: 3, start: new Date("2024-03-23"), registered: true }];
+      if (Array.isArray(data.interests)) {
+        // return data.interests;
+        const result: Interest[] = data.interests.map((value: InterestsResponse) => {
+          return { start: value.start, duration: value.duration, price: value.price, rentalId: value.rental_id, registered: (value.registered === 1) }
+        });
+        return result;
+      }
+      else {
+        return ConsoleError.Unknown;
+      }
     } catch(error) {
       console.error('Error fetching data:', error);
       return ConsoleError.Unknown;
