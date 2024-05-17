@@ -22,29 +22,35 @@ const LoginScreen = () => {
   }, [viewModel]);
 
   return (
-    <div className="LoginScreen">
-      <h2>{(viewModel.uiState.type === Login.Type.Error ) ? viewModel.uiState.errorCode : "Login"}</h2>
-      <input
-        type="text"
-        value={username}
-        onChange={(event) => {
-          setUsername(event.target.value);
-        }}
-        placeholder="Enter username"
-      />
-      <input
-        type="text"
-        value={password}
-        onChange={(event) => {
-          setPassword(event.target.value);
-        }}
-        placeholder="Enter password"
-        style={{ marginTop: "16px" }}
-      />
-      <button
-        onClick={ async () => setViewModel(await Login.LoginViewModel.login(username, password)) }
-        style={{ marginTop: "16px" }}
-      >Log in</button>
+    <div className="LoginScreenContainer">
+      <div className="LoginScreen" style={(viewModel.uiState.type === Login.Type.Error) ? { display: "none" } : { display: "flex" }}>
+        <h1>Attendance</h1>
+        <input
+          type="text"
+          value={username}
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+          placeholder="Uživatel"
+        />
+        <input
+          type="text"
+          value={password}
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+          placeholder="Heslo"
+          style={{ marginTop: "16px" }}
+        />
+        <button
+          onClick={async () => setViewModel(await Login.LoginViewModel.login(username, password))}
+          style={{ marginTop: "16px", marginBottom: "64px" }}
+        >Přihlásit</button>
+      </div>
+      <div className="ErrorOverlay" style={(viewModel.uiState.type === Login.Type.Error) ? { display: "flex" } : { display: "none" }}>
+
+        <h2>{(viewModel.uiState as Login.Error)?.errorCode || "Unknown error."}</h2>
+      </div>
     </div>
   )
 }

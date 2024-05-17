@@ -6,9 +6,11 @@ import HomePage from './page/HomePage';
 import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
 import LoginScreen from './screen/LoginScreen';
+import CurrentConfig from './model/Config';
 
 function onLogout() {
-
+  CurrentConfig.clearSession();
+  window.location.href="/";
 }
 
 function onRefresh() {
@@ -38,9 +40,9 @@ function App() {
         <div className="match-parent flex-column">
           <div className="AppBar">
             <span className="AppBar-title">Attendance</span>
-            <a href="#" onClick={onLogout}>Logout</a>&nbsp;
-            <a href="javascript:void(0);" onClick={onRefresh}>Refresh</a>&nbsp;
-            <a href="https://iceapp.cz" onClick={onWeb}>Web App</a>
+            <a href="#" onClick={onLogout}>Odhlásit</a>&nbsp;&nbsp;&nbsp;
+            <a href="javascript:void(0);" onClick={onRefresh}>Obnovit</a>&nbsp;&nbsp;&nbsp;
+            <a href="https://iceapp.cz" onClick={onWeb}>Web</a>
           </div>
           <div className="Page">
             <Routes>

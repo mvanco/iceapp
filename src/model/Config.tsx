@@ -36,6 +36,12 @@ class Config {
     this._validity = value;
   }
 
+  clearSession() {
+    this._token = undefined;
+    this._userId = undefined;
+    this._validity = undefined;
+  }
+
   RestApiUrl: string;
 }
 
