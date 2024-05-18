@@ -21,7 +21,7 @@ export default function TermsPage() {
   return (
     <div className="SubPage">
       <span className="headlineLarge">Zájem o termíny</span>
-      <Terms items={interests}/>
+      <Terms items={interests.filter((value, index, array) => value.registered)}/>
     </div>
   )
 }
