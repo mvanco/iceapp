@@ -14,10 +14,14 @@ class Config {
 
   private _token: string | undefined;
   get token(): string | undefined {
+    this._token = localStorage.getItem("token") ?? undefined;
     return this._token;
   }
   set token(value: string | undefined) {
     this._token = value;
+    if (typeof value === "string") {
+      localStorage.setItem("token", value);
+    }
   }
 
   private _userId: number | undefined;
