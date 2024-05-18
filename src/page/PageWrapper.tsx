@@ -6,8 +6,8 @@ export default function PageWrapper() {
     <>
       <Outlet/>
       <div className="Menu">
-        <Link to="/internal/home">Home</Link>
-        <Link to="/internal/terms">Terms</Link>
+        <Link to="/internal/home">Profil</Link>
+        <Link to="/internal/terms">Termíny</Link>
       </div>
     </>
   )

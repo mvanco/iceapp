@@ -21,21 +21,32 @@ export default function TermsPage() {
   return (
     <div className="SubPage">
       <span className="headlineLarge">Zájem o termíny</span>
-      {renderTerms(interests.filter((value, index, array) => value.registered))}
+      <Terms items={interests}/>
     </div>
   )
 }
 
-function renderTerms(interests: Interest[]) {
-  if (interests.length == 0) {
+interface TermsProps {
+  items: Interest[];
+}
+
+function Terms({ items }: TermsProps) {
+  if (items.length == 0) {
     return (<span className="titleLarge" style={{ marginTop: "8px" }}>Nemáte zatím zájem o žádné termíny.</span>);
   }
   else {
-    let result = "";
-    for (let term of interests) {
-      result += term.start + "; ";
-    }
-
-    return (<span className="titleLarge" style={{ marginTop: "8px" }}>{result}</span>);
+    return (
+      <>
+        { items.map(item => (
+          <span className="titleLarge" style={{ marginTop: "8px" }}>{printTerm(item.start)}</span>
+          
+        )) }
+      </>
+    );
   }
+}
+
+function printTerm(date: Date): string {
+  const months = ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"];
+  return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 }

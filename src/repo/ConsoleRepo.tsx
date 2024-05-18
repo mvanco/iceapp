@@ -9,7 +9,7 @@ enum ConsoleError {
 }
 
 interface InterestsResponse {
-  start: Date,
+  start: string,
   duration: number,
   price: number,
   rental_id: number,
@@ -65,9 +65,8 @@ class ConsoleRepo {
         }
       }
       if (Array.isArray(data.interests)) {
-        // return data.interests;
         const result: Interest[] = data.interests.map((value: InterestsResponse) => {
-          return { start: value.start, duration: value.duration, price: value.price, rentalId: value.rental_id, registered: (value.registered === 1) }
+          return { start: new Date(Date.parse(value.start)), duration: value.duration, price: value.price, rentalId: value.rental_id, registered: (value.registered === 1) }
         });
         return result;
       }
