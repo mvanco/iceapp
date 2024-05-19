@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import PageWrapper from "./PageWrapper"
 import { ConsoleRepo } from "../repo/ConsoleRepo";
 import Interest from "../model/Interest";
+import RegistrationDialog from "./RegistrationDialog";
+import { printTerm } from "../utils/Utils";
 
 export default function TermsPage() {
 
   const [interests, setInterests] = useState<Interest[]>([]);
+  const [shownDialog, setShownDialog] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -18,10 +21,26 @@ export default function TermsPage() {
     fetchData();
   }, []);
 
+  const myTerms: Interest[] = [];
+  const setSelected = (rentalId: number | null) => {
+    if (rentalId != null) {
+
+    }
+    setShownDialog(false);
+  };
+
+  const registerTerm = () => {
+    setShownDialog(true);
+  }
+
   return (
-    <div className="SubPage">
-      <span className="headlineLarge">Zájem o termíny</span>
-      <Terms items={interests.filter((value, index, array) => value.registered)}/>
+    <div className="SubPageSwitcher">
+      <div className="SubPage">
+        <span className="headlineLarge">Zájem o termíny</span>
+        <Terms items={interests.filter((value, index, array) => value.registered)} />
+      </div>
+      <RegistrationDialog terms={interests.filter((value, index, array) => !value.registered)} setSelected={setSelected} style={{ position: "absolute", display: (shownDialog) ? "flex" : "none" }}/>
+      <a href="#" onClick={registerTerm} style={{ position: "absolute", bottom: "32px", right: "32px"}}>Zaregistrovat termín</a>
     </div>
   )
 }
@@ -37,16 +56,10 @@ function Terms({ items }: TermsProps) {
   else {
     return (
       <>
-        { items.map(item => (
-          <span className="titleLarge" style={{ marginTop: "8px" }}>{printTerm(item.start)}</span>
-          
-        )) }
+        {items.map(item => (
+          <span className="titleLarge" style={{ marginTop: "8px" }}>{printTerm(item, true)}</span>
+        ))}
       </>
     );
   }
-}
-
-function printTerm(date: Date): string {
-  const months = ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"];
-  return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 }

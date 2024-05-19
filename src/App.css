@@ -53,9 +53,17 @@
   justify-content: center;
 }
 
-.SubPage {
+.SubPageSwitcher {
+  position: relative;
   flex: 1;
   width: 100%;
+  box-sizing: border-box;
+}
+
+.SubPage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
 
   display: flex;
@@ -63,6 +71,40 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
+}
+
+.RegistrationDialog {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.Card {
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 350px;
+  box-sizing: border-box;
+
+  background-color: #ebebeb;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.DialogButtons {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .Menu {
@@ -147,4 +189,8 @@ button {
 
 .titleLarge {
   font-size: 1.3em;
+}
+
+.titleMedium {
+  font-size: 1em;
 }
