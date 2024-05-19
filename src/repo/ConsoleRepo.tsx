@@ -78,6 +78,34 @@ class ConsoleRepo {
       return ConsoleError.Unknown;
     }
   }
+
+  static async registerTerm(rentalId: number): Promise<null | ConsoleError> {
+    if (CurrentConfig.token === undefined) {
+      return ConsoleError.InvalidToken;
+    }
+    try {
+      const bodyData = new URLSearchParams();
+      bodyData.append("token", CurrentConfig.token);
+      bodyData.append("rental_id", rentalId.toString());
+      const response = await fetch(`${CurrentConfig.RestApiUrl}/register_term`, {
+        method: 'POST',
+        body: bodyData
+      });
+      if (!response.ok) {
+        return ConsoleError.Unknown;
+      }
+      const data = await response.json();
+      for (const value of Object.values(ConsoleError)) {
+        if (data.error === value) {
+          return value;
+        }
+      }
+      return null;
+    } catch(error) {
+      console.error('Error fetching data:', error);
+      return ConsoleError.Unknown;
+    }
+  }
 }
 
 export {

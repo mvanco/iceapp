@@ -24,7 +24,7 @@ export default function TermsPage() {
   const myTerms: Interest[] = [];
   const setSelected = (rentalId: number | null) => {
     if (rentalId != null) {
-
+      ConsoleRepo.registerTerm(rentalId);
     }
     setShownDialog(false);
   };
