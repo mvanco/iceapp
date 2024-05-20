@@ -24,7 +24,12 @@ export default function TermsPage() {
   const myTerms: Interest[] = [];
   const setSelected = (rentalId: number | null) => {
     if (rentalId != null) {
-      ConsoleRepo.registerTerm(rentalId);
+      ConsoleRepo.registerTerm(rentalId).then(async () => {
+        const interests = await ConsoleRepo.interests();
+        if (Array.isArray(interests)) {
+          setInterests(interests);
+        }
+      });
     }
     setShownDialog(false);
   };
