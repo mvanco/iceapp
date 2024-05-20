@@ -6,7 +6,11 @@ const navigateToInternal = (username: string, password: string) => {
   Login.LoginViewModel.login(username, password)
 }
 
-const LoginScreen = () => {
+interface LoginScreenProps {
+  setLoggedIn: (value: boolean) => void
+}
+
+const LoginScreen = ({setLoggedIn}: LoginScreenProps) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +47,11 @@ const LoginScreen = () => {
           style={{ marginTop: "16px" }}
         />
         <button
-          onClick={async () => setViewModel(await Login.LoginViewModel.login(username, password))}
+          onClick={async () => {
+            const newVM = await Login.LoginViewModel.login(username, password);
+            setViewModel(newVM);
+            setLoggedIn(newVM.uiState.type == Login.Type.Success);
+          }}
           style={{ marginTop: "16px", marginBottom: "64px" }}
         >Přihlásit</button>
       </div>
