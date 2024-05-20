@@ -3,9 +3,9 @@ import { login, LoginError } from "../repo/LoginRepo";
 
 export namespace Login {
   enum ErrorCode {
-    IncorrectUsername = "Username doesn't exist.",
-    IncorrectPassword = "Incorrect password.",
-    Unknown = "Unknown error occurred."
+    IncorrectUsername = "Uživatelské jméno neexistuje.",
+    IncorrectPassword = "Špatné heslo.",
+    Unknown = "Nastala neznámá chyba."
   }
 
   export enum Type {
