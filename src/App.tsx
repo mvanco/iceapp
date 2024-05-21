@@ -8,6 +8,7 @@ import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
 import LoginScreen from './screen/LoginScreen';
 import CurrentConfig from './model/Config';
+import { useEffect } from 'react';
 
 function onLogout() {
   CurrentConfig.clearSession();
@@ -36,6 +37,10 @@ const InternalScreen = () => {
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(CurrentConfig.token !== undefined);
+  }, []);
 
   return (
     <div className="App">

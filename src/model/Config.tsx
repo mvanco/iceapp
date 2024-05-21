@@ -21,6 +21,8 @@ class Config {
     this._token = value;
     if (typeof value === "string") {
       localStorage.setItem("token", value);
+    } else {
+      localStorage.removeItem("token");
     }
   }
 
@@ -41,10 +43,13 @@ class Config {
   }
 
   clearSession() {
-    this._token = undefined;
-    this._userId = undefined;
-    this._validity = undefined;
+    this.token = undefined;
+    this.userId = undefined;
+    this.validity = undefined;
   }
+
+  get ToastLengthShort() { return 500; }
+  get ToastLengthLong() { return 3500; }
 
   RestApiUrl: string;
 }

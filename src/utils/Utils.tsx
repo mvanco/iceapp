@@ -12,3 +12,7 @@ export function printTerm(term: Interest, short: boolean = false): string {
     return `${calcDate} ${time}, ${term.price}Kč / ${term.duration}m`;
   }
 }
+
+export function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

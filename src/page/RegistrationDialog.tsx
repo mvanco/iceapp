@@ -35,8 +35,14 @@ export default function RegistrationDialog({ terms, setSelected, style }: Regist
         ))}
         {(terms.length === 0) ? <span className="titleLarge" style={{ marginTop: "8px" }}>Není k dispozici žádný nový termín.</span> : ""}
         <div className="DialogButtons" style={{ marginTop: "32px" }}>
-          <button onClick={() => setSelected(Number(selectedTerm))}>Potvrdit</button>
-          <button onClick={() => setSelected(null)} style={{ marginRight: "8px" }}>Zrušit</button>
+          <button onClick={() => {
+            setSelectedTerm("");
+            setSelected((selectedTerm.length === 0) ? null : Number(selectedTerm));
+          }}>Potvrdit</button>
+          <button onClick={() => {
+            setSelectedTerm("");
+            setSelected(null);
+          }} style={{ marginRight: "8px" }}>Zrušit</button>
         </div>
       </div>
     </div>

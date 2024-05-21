@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { Login } from "../viewmodel/LoginViewModel";
+import CurrentConfig from "../model/Config";
 
 const navigateToInternal = (username: string, password: string) => {
   Login.LoginViewModel.login(username, password)
@@ -21,7 +22,7 @@ const LoginScreen = ({setLoggedIn}: LoginScreenProps) => {
     if (viewModel.uiState.type === Login.Type.Success) {
       navigate("/internal");
     } else if (viewModel.uiState.type === Login.Type.Error) {
-      setTimeout(() => setViewModel(Login.LoginViewModel.clearError()), 1000);
+      setTimeout(() => setViewModel(Login.LoginViewModel.clearError()), CurrentConfig.ToastLengthShort);
     }
   }, [viewModel]);
 
