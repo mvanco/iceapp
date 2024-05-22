@@ -50,7 +50,7 @@ function App() {
             <span className="AppBar-title">Attendance</span>
             {loggedIn && <><a href="#" onClick={onLogout}>Odhlásit</a>&nbsp;&nbsp;&nbsp;</> }
             <a href="javascript:void(0);" onClick={onRefresh}>Obnovit</a>&nbsp;&nbsp;&nbsp;
-            <a href="https://iceapp.cz" onClick={onWeb}>Web</a>
+            <a href="https://iceapp.cz?mode=web" onClick={onWeb}>Web</a>
           </div>
           <div className="Page">
             <Routes>
