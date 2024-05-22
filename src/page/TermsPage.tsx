@@ -67,15 +67,19 @@ export default function TermsPage() {
 
   return (
     <div className="SubPageSwitcher">
-      <div className="SubPage"><div className="scrollview">
-        <span className="headlineLarge">Zájem o termíny</span>
-        <Terms items={interests.filter((value, index, array) => value.registered)} />
-      </div></div>
+      <div className="SubPage">
+        <span className="headlineLarge" style={{ marginBottom: "16px" }}>Zájem o termíny</span>
+        <div className="TermsBox">
+          <div className="scrollview">
+            <Terms items={interests.filter((value, index, array) => value.registered)} />
+          </div>
+        </div>
+      </div>
       <div className="SubPage override" style={{ display: (errorMessage.length !== 0) ? "flex" : "none" }}>
         <h2>{errorMessage}</h2>
       </div>
-      <a href="#" onClick={registerTerm} style={{ position: "absolute", bottom: "32px", right: "32px"}}>Zaregistrovat termín</a>
-      <RegistrationDialog terms={interests.filter((value, index, array) => !value.registered)} setSelected={setSelected} style={{ position: "absolute", display: (shownDialog) ? "flex" : "none" }}/>
+      <a href="#" onClick={registerTerm} style={{ position: "absolute", bottom: "32px", right: "32px" }}>Zaregistrovat termín</a>
+      <RegistrationDialog terms={interests.filter((value, index, array) => !value.registered)} setSelected={setSelected} style={{ position: "absolute", display: (shownDialog) ? "flex" : "none" }} />
     </div>
   )
 }
