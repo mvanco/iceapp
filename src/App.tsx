@@ -7,6 +7,7 @@ import HomePage from './page/HomePage';
 import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
 import LoginScreen from './screen/LoginScreen';
+import RegisterScreen from './screen/RegisterScreen';
 import CurrentConfig from './model/Config';
 import { useEffect } from 'react';
 
@@ -55,6 +56,7 @@ function App() {
           <div className="Page">
             <Routes>
               <Route path="/" element={<LoginScreen setLoggedIn={setLoggedIn}/>} />
+              <Route path="/register" element={<RegisterScreen/>} />
               <Route path="/internal/*" element={<PageWrapper/>}>
                   <Route index element={<HomePage />} />
                   <Route path="home" element={<HomePage />} />

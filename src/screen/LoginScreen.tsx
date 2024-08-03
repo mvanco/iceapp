@@ -60,6 +60,9 @@ const LoginScreen = ({setLoggedIn}: LoginScreenProps) => {
 
         <h2>{(viewModel.uiState as Login.Error)?.errorCode || "Unknown error."}</h2>
       </div>
+      <div className="Menu">
+        <Link to="/register">Registrace</Link>
+      </div>
     </div>
   )
 }
