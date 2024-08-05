@@ -6,10 +6,12 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import TermsPage from './page/TermsPage';
 import PageWrapper from './page/PageWrapper';
+import AdminPageWrapper from './page/AdminPageWrapper';
 import LoginScreen from './screen/LoginScreen';
 import RegisterScreen from './screen/RegisterScreen';
 import CurrentConfig from './model/Config';
 import { useEffect } from 'react';
+import AdminUsersPage from './page/AdminUsersPage';
 
 function onLogout() {
   CurrentConfig.clearSession();
@@ -61,6 +63,11 @@ function App() {
                   <Route index element={<HomePage />} />
                   <Route path="home" element={<HomePage />} />
                   <Route path="terms" element={<TermsPage />} />
+              </Route>
+              <Route path="/admin/*" element={<AdminPageWrapper/>}>
+                  <Route index element={<HomePage />} />
+                  <Route path="home" element={<HomePage />} />
+                  <Route path="users" element={<AdminUsersPage />} />
               </Route>
             </Routes>
           </div>
