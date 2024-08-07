@@ -20,6 +20,7 @@ export default function AddCreditDialog({ username, setCredit, style }: AddCredi
           type="text"
           value={selectedCredit}
           placeholder="Kredit"
+          onChange={(event) => setSelectedCredit(event.target.value)}
           style={{ marginTop: "16px" }}
         />
         <div className="DialogButtons" style={{ marginTop: "32px" }}>
