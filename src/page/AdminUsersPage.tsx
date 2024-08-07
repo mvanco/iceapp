@@ -20,6 +20,10 @@ function AdminUsersPage() {
     fetchData();
   }, []);
 
+  async function handleDialogConfirmation(credit: number | null) {
+    await viewModel.hideDialog(); await viewModel.changeCredit(credit ?? 0); await viewModel.fetchData();
+  }
+
   return (
     <div className="SubPageSwitcher">
       <div className="SubPage" style={'users' in uiState ? { display: "flex" } : { display: "none" }}>
@@ -34,7 +38,7 @@ function AdminUsersPage() {
         <h2>{(uiState as Message).text}</h2>
       </div>
       <a href="#" onClick={() => { viewModel.showDialog() }} style={{ position: "absolute", bottom: "32px", right: "32px", display: ((uiState as Idle).selectedId != null) ? "flex" : "none" }}>Přidat kredit</a>
-      <AddCreditDialog username={(uiState as Idle).selectedName ?? ""} setCredit={(selectedCredit) => { viewModel.hideDialog(); viewModel.changeCredit(selectedCredit ?? 0) }} style={{ position: "absolute", display: ((uiState as Idle).dialogShown) ? "flex" : "none" }} />
+      <AddCreditDialog username={(uiState as Idle).selectedName ?? ""} setCredit={(selectedCredit) => { handleDialogConfirmation(selectedCredit) }} style={{ position: "absolute", display: ((uiState as Idle).dialogShown) ? "flex" : "none" }} />
     </div>
   );
 }
