@@ -1,4 +1,6 @@
 import Interest from "../model/Interest";
+import User from "../model/User";
+import { ViewModelUser } from "../viewmodel/UsersViewModel";
 
 export function printTerm(term: Interest, short: boolean = false): string {
   const date = term.start;
@@ -11,6 +13,10 @@ export function printTerm(term: Interest, short: boolean = false): string {
   } else {
     return `${calcDate} ${time}, ${term.price}Kč / ${term.duration}m`;
   }
+}
+
+export function printUser(user: ViewModelUser): string {
+  return `${user.username}   ${user.credit}Kč`;
 }
 
 export function delay(ms: number) {

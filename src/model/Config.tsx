@@ -1,5 +1,7 @@
 class Config {
   private static instance: Config;
+  RestApiUrl: string;
+  LoadingInterval: number;
 
   static getInstance(): Config {
     if (!Config.instance) {
@@ -10,6 +12,7 @@ class Config {
 
   private constructor() {
     this.RestApiUrl = "https://matoosh.eu/rest/ice";
+    this.LoadingInterval = 1000;
   }
 
   private _token: string | undefined;
@@ -50,8 +53,6 @@ class Config {
 
   get ToastLengthShort() { return 500; }
   get ToastLengthLong() { return 3500; }
-
-  RestApiUrl: string;
 }
 
 const CurrentConfig = Config.getInstance()

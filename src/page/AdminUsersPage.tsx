@@ -1,36 +1,73 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Login } from "../viewmodel/LoginViewModel";
 import CurrentConfig from "../model/Config";
 import { ConsoleRepo } from "../repo/ConsoleRepo";
 import User from "../model/User";
 import { UsersViewModel } from "../viewmodel/UsersViewModel";
-import { Idle, Message } from "../viewmodel/UsersViewModel";
+import { Idle, Message, UiState, ViewModelUser } from "../viewmodel/UsersViewModel";
+import { printUser } from "../utils/Utils";
+import AddCreditDialog from "./AddCreditDialog";
 
-interface AdminUsersPageProps {
-}
-
-const AdminUsersPage = ({}: AdminUsersPageProps) => {
-  const [uiState, setUiState] = useState<Idle | Message>(new Idle());
+function AdminUsersPage() {
+  const [uiState, setUiState] = useState<UiState>(new Message(""));
+  const [viewModel] = useState(new UsersViewModel(uiState, setUiState));
 
   useEffect(() => {
-    // Sync viewModel state with component state
-    const updateState = async () => {
-      await (new UsersViewModel(uiState, setUiState)).selectUser();
+    async function fetchData() {
+      viewModel.fetchData();
     };
-    updateState();
+    fetchData();
   }, []);
 
   return (
     <div className="SubPageSwitcher">
-      <div className="SubPage" style={uiState instanceof Idle ? { display: "flex" } : { display: "none" }}>
-        <span className="headlineLarge">Hardcoded</span>
+      <div className="SubPage" style={'users' in uiState ? { display: "flex" } : { display: "none" }}>
+        <span className="headlineLarge">Uživatelé</span>
+        <div className="TermsBox">
+          <div className="scrollview">
+            <Users users={(uiState as Idle)?.users ?? []} selectedId={(uiState as Idle)?.selectedId} onUserSelected={(id) => viewModel.selectUser(id)} />
+          </div>
+        </div>
       </div>
-      <div className="SubPage override" style={uiState instanceof Message ? { display: "flex" } : { display: "none" }}>
-        <h2>OMG</h2>
+      <div className="SubPage override" style={'text' in uiState ? { display: "flex" } : { display: "none" }}>
+        <h2>{(uiState as Message).text}</h2>
       </div>
+      <a href="#" onClick={() => { viewModel.showDialog() }} style={{ position: "absolute", bottom: "32px", right: "32px", display: ((uiState as Idle).selectedId != null) ? "flex" : "none" }}>Přidat kredit</a>
+      <AddCreditDialog username={(uiState as Idle).selectedName ?? ""} setCredit={(selectedCredit) => { viewModel.hideDialog(); viewModel.changeCredit(selectedCredit ?? 0) }} style={{ position: "absolute", display: ((uiState as Idle).dialogShown) ? "flex" : "none" }} />
     </div>
   );
+}
+
+interface UsersProps {
+  users: ViewModelUser[],
+  selectedId: number | null,
+  onUserSelected: (id: number) => void
+}
+
+function Users({ users, selectedId, onUserSelected }: UsersProps) {
+  if (users.length == 0) {
+    return (<span className="titleLarge" style={{ marginTop: "8px" }}>Zatím není registrován žádný uživatel.</span>);
+  }
+  else {
+    return (
+      <>
+        {users.map(user => (
+          <div className="flex-row">
+            <input
+              type="radio"
+              value={user.id}
+              checked={user.id == selectedId}
+              onChange={() => onUserSelected(user.id)}
+              style={{ marginTop: "12px", marginRight: "8px", display: (selectedId != null) ? "flex" : "none" }}
+            />
+            <span onClick={() => onUserSelected(user.id)} key={user.id} className="titleLarge" style={{ width: "80px", marginTop: "8px" }}>{user.username}</span>
+            <span onClick={() => onUserSelected(user.id)} className="titleLarge" style={{ width: "80px", marginTop: "8px", marginRight: "16px", textAlign: "right" }}>{user.credit}</span>
+          </div>
+        ))}
+      </>
+    );
+  }
 }
 
 
