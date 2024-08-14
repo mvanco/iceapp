@@ -214,10 +214,10 @@ export namespace Rentals {
     start: string,
     duration: number,
     price: number,
-    min_capacity: number,
-    max_capacity: number,
-    registered: boolean
-    confirmed: boolean
+    minCapacity: number,
+    maxCapacity: number,
+    registered: number,
+    confirmed: number
   }
 
   export enum ErrorEnum {

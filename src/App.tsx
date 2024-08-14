@@ -12,6 +12,7 @@ import RegisterScreen from './screen/RegisterScreen';
 import CurrentConfig from './model/Config';
 import { useEffect } from 'react';
 import AdminUsersPage from './page/AdminUsersPage';
+import AdminTermsPage from './page/AdminTermsPage';
 
 function onLogout() {
   CurrentConfig.clearSession();
@@ -68,6 +69,7 @@ function App() {
                   <Route index element={<HomePage />} />
                   <Route path="home" element={<HomePage />} />
                   <Route path="users" element={<AdminUsersPage />} />
+                  <Route path="terms" element={<AdminTermsPage />} />
               </Route>
             </Routes>
           </div>

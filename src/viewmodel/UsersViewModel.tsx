@@ -58,7 +58,7 @@ class UsersViewModel {
   }
 
   async fetchData(): Promise<void> {
-    this.uiState = new Message("Loading...");
+    this.uiState = new Message("Načítám...");
     await new Promise(resolve => setTimeout(resolve, CurrentConfig.ToastLengthShort));
     const users = await AdminActionsRepo.users();
     console.debug('Fetched Data:', users);
@@ -105,7 +105,7 @@ class UsersViewModel {
     if (currState.selectedId == null) {
       return;
     }
-    this.uiState = new Message("Loading...");
+    this.uiState = new Message("Načítám...");
     await new Promise(resolve => setTimeout(resolve, CurrentConfig.ToastLengthShort));
     const result = await AdminActionsRepo.changeCredit(currState.selectedId, credit);
     if ('error' in result) {

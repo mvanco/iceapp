@@ -8,6 +8,7 @@ export default function AdminPageWrapper() {
       <div className="Menu">
         <Link to="/admin/home">Profil</Link>
         <Link to="/admin/users">Uživatelé</Link>
+        <Link to="/admin/terms">Termíny</Link>
       </div>
     </>
   )
