@@ -46,28 +46,29 @@ export class RentalViewModel {
     }
   }
 
-  async selectUser(id: number): Promise<void> {
+  async selectTerm(id: number): Promise<void> {
     const currState = this.uiState as RentalViewModel.Idle;
     if (currState === undefined) {
       console.error('Internal error');
       return;
     }
     if (currState.selectedId != id) {
-      this.uiState = { ...currState, selectedId: id};
+      this.uiState = new RentalViewModel.Idle(currState.rentals, id, currState.dialogShown);
     }
     else {
-      this.uiState = { ...currState, selectedId: null};
+      this.uiState = new RentalViewModel.Idle(currState.rentals, null, currState.dialogShown);
     }
   }
 
   async showDialog(type: RentalViewModel.DialogType): Promise<void> {
+    const currState = this.uiState as RentalViewModel.Idle;
     switch (type) {
       case RentalViewModel.DialogType.None:
         if (this.uiState instanceof RentalViewModel.Idle) {
           console.error('Internal error');
           return;
         }
-        this.uiState = {...this.uiState, dialogShown: RentalViewModel.DialogType.None}
+        this.uiState = new RentalViewModel.Idle(currState.rentals, currState.selectedId, RentalViewModel.DialogType.None);
         break;
       case RentalViewModel.DialogType.AddRental:
         if (!(this.uiState instanceof RentalViewModel.Idle)) {
@@ -103,10 +104,14 @@ export class RentalViewModel {
     this.fetchData();
   }
 
-  async deleteRental(id: number) {
+  async deleteRental() {
+    const prevState = this.uiState as RentalViewModel.Idle;
+    if (prevState.selectedId == null) {
+      return;
+    }
     this.uiState = new RentalViewModel.Message("Načítám...");
     await new Promise(resolve => setTimeout(resolve, CurrentConfig.ToastLengthShort));
-    await AdminActionsRepo.deleteRental(id);
+    await AdminActionsRepo.deleteRental(prevState.selectedId);
     this.fetchData();
   }
 }

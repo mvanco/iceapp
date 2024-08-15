@@ -1,6 +1,4 @@
-import { printTerm } from "../utils/Utils";
 import { useState } from "react";
-import { UsersViewModel } from "../viewmodel/UsersViewModel";
 
 interface AddCreditDialogProps {
   username: string,

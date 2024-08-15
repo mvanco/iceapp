@@ -21,7 +21,12 @@ function AdminUsersPage() {
   }, []);
 
   async function handleDialogConfirmation(credit: number | null) {
-    await viewModel.hideDialog(); await viewModel.changeCredit(credit ?? 0); await viewModel.fetchData();
+    if (credit === null) {
+      await viewModel.hideDialog();
+    }
+    else {
+      await viewModel.hideDialog(); await viewModel.changeCredit(credit ?? 0); await viewModel.fetchData();
+    }
   }
 
   return (

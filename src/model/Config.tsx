@@ -2,6 +2,7 @@ class Config {
   private static instance: Config;
   RestApiUrl: string;
   LoadingInterval: number;
+  ApiDateFormat: string;
 
   static getInstance(): Config {
     if (!Config.instance) {
@@ -13,6 +14,7 @@ class Config {
   private constructor() {
     this.RestApiUrl = "https://matoosh.eu/rest/ice";
     this.LoadingInterval = 1000;
+    this.ApiDateFormat = 'YYYY-MM-DDTHH:mm';
   }
 
   private _token: string | undefined;
