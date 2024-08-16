@@ -27,7 +27,6 @@ export default function AdminHomePage() {
       const profile = await ConsoleRepo.profile();
       if (typeof profile === "object") {
         setUser(profile);
-        hideError();
       }
 
       const rentals = await AdminActionsRepo.rentals();
@@ -35,8 +34,8 @@ export default function AdminHomePage() {
         // TODO: Print some error
       }
       else {
-        setRegRentals(rentals.filter((rental) => rental.registered == 1));
-        setConRentals(rentals.filter((rental) => rental.confirmed == 1));
+        setRegRentals(rentals.filter((rental) => (rental.registered >= rental.minCapacity) && !rental.paid));
+        setConRentals(rentals.filter((rental) => (rental.confirmed >= rental.minCapacity) && !rental.paid));
         hideError();
       }
     }

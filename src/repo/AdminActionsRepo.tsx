@@ -114,7 +114,17 @@ class AdminActionsRepo {
         return {error: Rentals.ErrorEnum.Unknown};
       }
 
-      return data.rentals;
+      return data.rentals.map((rental: Rentals.ApiResponse) => ({
+        id: rental.id,
+        start: rental.start,
+        duration: rental.duration,
+        price: rental.price,
+        minCapacity: rental.min_capacity,
+        maxCapacity: rental.max_capacity,
+        registered: rental.registered,
+        confirmed: rental.confirmed,
+        paid: rental.paid == 1
+      }));
     } catch(error) {
       console.error('Error fetching data:', error);
       return {error: Rentals.ErrorEnum.Unknown};
@@ -209,6 +219,17 @@ class AdminActionsRepo {
 }
 
 export namespace Rentals {
+  export interface ApiResponse {
+    id: number,
+    start: string,
+    duration: number,
+    price: number,
+    min_capacity: number,
+    max_capacity: number,
+    registered: number,
+    confirmed: number,
+    paid: number
+  }
   export interface Response {
     id: number,
     start: string,
@@ -217,7 +238,8 @@ export namespace Rentals {
     minCapacity: number,
     maxCapacity: number,
     registered: number,
-    confirmed: number
+    confirmed: number,
+    paid: boolean
   }
 
   export enum ErrorEnum {
