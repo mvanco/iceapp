@@ -13,6 +13,7 @@ import CurrentConfig from './model/Config';
 import { useEffect } from 'react';
 import AdminUsersPage from './page/AdminUsersPage';
 import AdminTermsPage from './page/AdminTermsPage';
+import AdminHomePage from './page/AdminHomePage';
 
 function onLogout() {
   CurrentConfig.clearSession();
@@ -66,8 +67,8 @@ function App() {
                   <Route path="terms" element={<TermsPage />} />
               </Route>
               <Route path="/admin/*" element={<AdminPageWrapper/>}>
-                  <Route index element={<HomePage />} />
-                  <Route path="home" element={<HomePage />} />
+                  <Route index element={<AdminHomePage />} />
+                  <Route path="home" element={<AdminHomePage />} />
                   <Route path="users" element={<AdminUsersPage />} />
                   <Route path="terms" element={<AdminTermsPage />} />
               </Route>

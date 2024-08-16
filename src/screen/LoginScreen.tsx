@@ -50,7 +50,7 @@ const LoginScreen = ({setLoggedIn}: LoginScreenProps) => {
           placeholder="Uživatel"
         />
         <input
-          type="text"
+          type="password"
           value={password}
           onChange={(event) => {
             setPassword(event.target.value);

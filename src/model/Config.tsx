@@ -1,8 +1,11 @@
+import i18next, { i18n } from "i18next";
+
 class Config {
   private static instance: Config;
   RestApiUrl: string;
   LoadingInterval: number;
   ApiDateFormat: string;
+  T: i18n;
 
   static getInstance(): Config {
     if (!Config.instance) {
@@ -15,6 +18,23 @@ class Config {
     this.RestApiUrl = "https://matoosh.eu/rest/ice";
     this.LoadingInterval = 1000;
     this.ApiDateFormat = 'YYYY-MM-DDTHH:mm';
+    this.T = i18next.createInstance()
+    this.T.init({
+      lng: 'cs', // Set the language to Czech
+      resources: {
+          cs: {
+              translation: {
+                  "term": "{{count}} termín",
+                  "term_few": "{{count}} termíny",
+                  "term_many": "{{count}} termínů"
+              }
+          }
+      },
+      // Pluralization rules for Czech
+      pluralSeparator: '_'
+    }).then(() => {
+      console.log("i18next initialized", this.T);
+    });
   }
 
   private _token: string | undefined;
