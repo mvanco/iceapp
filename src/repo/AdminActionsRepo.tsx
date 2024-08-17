@@ -216,6 +216,84 @@ class AdminActionsRepo {
       return {error: AddRental.ErrorEnum.Unknown};
     }
   }
+
+  /**
+   * Send confirmation mails to all registered users
+   * @param rentalId Rental that is about to be resolved
+   */
+  static async confirmUsers(
+    rentalId: number
+  ) {
+    if (CurrentConfig.token === undefined) {
+      return {error: ConfirmUsers.ErrorEnum.Unknown};
+    }
+    try {
+      const bodyData = new URLSearchParams();
+      bodyData.append("token", CurrentConfig.token);
+      bodyData.append("rental", String(rentalId));
+      const response = await fetch(`${CurrentConfig.RestApiUrl}/confirm_users`, {
+        method: "POST",
+        body: bodyData
+      });
+      if (!response.ok) {
+        return {error: ConfirmUsers.ErrorEnum.Unknown};
+      }
+      const data = await response.json();
+
+      if (data.error !== undefined) {
+        for (const value of Object.values(ConfirmUsers.ErrorEnum)) {
+          if (data.error === value) {
+            return {error: value};;
+          }
+        }
+        return {error: ConfirmUsers.ErrorEnum.Unknown};
+      }
+
+      return {};
+    } catch(error) {
+      console.error('Error fetching data:', error);
+      return {error: ConfirmUsers.ErrorEnum.Unknown};
+    }
+  }
+
+  /**
+   * Mark rental as already paid
+   * @param rentalId Rental that is about to be resolved
+   */
+    static async payRental(
+      rentalId: number
+    ) {
+      if (CurrentConfig.token === undefined) {
+        return {error: PayRental.ErrorEnum.Unknown};
+      }
+      try {
+        const bodyData = new URLSearchParams();
+        bodyData.append("token", CurrentConfig.token);
+        bodyData.append("rental", String(rentalId));
+        const response = await fetch(`${CurrentConfig.RestApiUrl}/pay_rental`, {
+          method: "POST",
+          body: bodyData
+        });
+        if (!response.ok) {
+          return {error: PayRental.ErrorEnum.Unknown};
+        }
+        const data = await response.json();
+  
+        if (data.error !== undefined) {
+          for (const value of Object.values(PayRental.ErrorEnum)) {
+            if (data.error === value) {
+              return {error: value};;
+            }
+          }
+          return {error: PayRental.ErrorEnum.Unknown};
+        }
+  
+        return {};
+      } catch(error) {
+        console.error('Error fetching data:', error);
+        return {error: PayRental.ErrorEnum.Unknown};
+      }
+    }
 }
 
 export namespace Rentals {
@@ -268,6 +346,26 @@ export namespace AddRental {
 
   export enum ErrorEnum {
      Unknown = "unknown"
+  }
+
+  export interface Error {
+    error: ErrorEnum
+  }
+}
+
+export namespace ConfirmUsers {
+  export enum ErrorEnum {
+    Unknown = "unknown"
+  }
+
+  export interface Error {
+    error: ErrorEnum
+  }
+}
+
+export namespace PayRental {
+  export enum ErrorEnum {
+    Unknown = "unknown"
   }
 
   export interface Error {

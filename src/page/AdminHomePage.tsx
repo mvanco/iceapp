@@ -7,6 +7,7 @@ import { DefaultUser } from "../model/User"
 import { delay } from "../utils/Utils"
 import { AdminActionsRepo } from "../repo/AdminActionsRepo"
 import { Rentals } from "../repo/AdminActionsRepo"
+import HandleNotificationDialog from "./HandleNotificationDialog"
 
 export default function AdminHomePage() {
 
@@ -14,6 +15,14 @@ export default function AdminHomePage() {
   const [regRentals, setRegRentals] = useState<Rentals.Response[]>([])
   const [conRentals, setConRentals] = useState<Rentals.Response[]>([])
   const [errorMessage, setErrorMessage] = useState<string>(" ");
+
+  enum DialogType {
+    None = 0,
+    ConfirmUsers = 1,
+    PayRental = 2
+  }
+
+  const [dialogShown, setDialogShown] = useState<DialogType>(DialogType.None);
 
   function hideError() {
     setErrorMessage("");
@@ -43,11 +52,30 @@ export default function AdminHomePage() {
   }, []);
 
   function onRegRentalsClick() {
-
+    setDialogShown(DialogType.ConfirmUsers);
   }
 
   function onConRentalsClick() {
+    setDialogShown(DialogType.PayRental);
+  }
 
+  async function handleDialogClick(type: DialogType, rentalId: number | null) {
+    if (rentalId == null) {
+      setDialogShown(DialogType.None);
+    }
+    else {
+      switch (type) {
+        case DialogType.ConfirmUsers:
+          await AdminActionsRepo.confirmUsers(rentalId);
+          break;
+  
+        case DialogType.PayRental:
+          await AdminActionsRepo.payRental(rentalId);
+          break;
+      }
+
+      setDialogShown(DialogType.None);
+    }
   }
 
   return (
@@ -65,6 +93,11 @@ export default function AdminHomePage() {
           Nemáte žádné nové upozornění.
         </div>
       </div>
+      <HandleNotificationDialog
+        title={(dialogShown == DialogType.ConfirmUsers) ? "Ověření zájmu" : "Potvrzení zaplacení"}
+        rentals={(dialogShown == DialogType.ConfirmUsers) ? regRentals : conRentals}
+        setSelected={(id) => handleDialogClick(dialogShown, id)}
+        style={{ position: "absolute", display: (dialogShown != DialogType.None) ? "flex" : "none" }} />
       <div className="SubPage override" style={{ display: (errorMessage.length !== 0) ? "flex" : "none" }}>
         <h2>{errorMessage}</h2>
       </div>
