@@ -1,6 +1,7 @@
 import CurrentConfig from "../model/Config";
 import User from "../model/User";
 import Interest from "../model/Interest";
+import moment from "moment";
 
 enum ConsoleError {
   InvalidToken = "invalid-token",
@@ -66,7 +67,7 @@ class ConsoleRepo {
       }
       if (Array.isArray(data.interests)) {
         const result: Interest[] = data.interests.map((value: InterestsResponse) => {
-          return { start: new Date(Date.parse(value.start)), duration: value.duration, price: value.price, rentalId: value.rental_id, registered: (value.registered === 1) }
+          return { start: moment(value.start, "DD.MM.'YY HH:mm").toDate(), duration: value.duration, price: value.price, rentalId: value.rental_id, registered: (value.registered === 1) }
         });
         return result;
       }
