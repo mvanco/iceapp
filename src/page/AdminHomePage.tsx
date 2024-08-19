@@ -95,6 +95,7 @@ export default function AdminHomePage() {
       </div>
       <HandleNotificationDialog
         title={(dialogShown == DialogType.ConfirmUsers) ? "Ověření zájmu" : "Potvrzení zaplacení"}
+        action={(dialogShown == DialogType.ConfirmUsers) ? "Odešli e-maily" : "Potvrdit"}
         rentals={(dialogShown == DialogType.ConfirmUsers) ? regRentals : conRentals}
         setSelected={(id) => handleDialogClick(dialogShown, id)}
         style={{ position: "absolute", display: (dialogShown != DialogType.None) ? "flex" : "none" }} />

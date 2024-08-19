@@ -4,12 +4,13 @@ import { useState } from "react";
 
 interface HandleNotificationDialogProps {
   title: string,
+  action: string,
   rentals: Rentals.Response[],
   setSelected: (value: number | null) => void,
   style: any
 }
 
-export default function HandleNotificationDialog({ title, rentals, setSelected, style }: HandleNotificationDialogProps) {
+export default function HandleNotificationDialog({ title, action, rentals, setSelected, style }: HandleNotificationDialogProps) {
 
   const [selectedRental, setSelectedRental] = useState<number | null>(null);
 
@@ -39,7 +40,7 @@ export default function HandleNotificationDialog({ title, rentals, setSelected, 
           <button onClick={() => {
             setSelectedRental(null);
             setSelected(selectedRental);
-          }}>Potvrdit</button>
+          }}>{action}</button>
           <button onClick={() => {
             setSelectedRental(null);
             setSelected(null);
