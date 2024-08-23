@@ -78,7 +78,7 @@ interface TermsProps {
 
 function Terms({ rentals, selectedId, onTermSelected }: TermsProps) {
   if (rentals.length == 0) {
-    return (<span className="titleLarge" style={{ marginTop: "8px" }}>Zatím není registrován žádný uživatel.</span>);
+    return (<span className="titleLarge" style={{ marginTop: "8px" }}>Zatím není vytvořen žádný termín.</span>);
   }
   else {
     return (
